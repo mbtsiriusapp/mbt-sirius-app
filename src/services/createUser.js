@@ -12,7 +12,6 @@ const createUser = async (newUser) => {
       body: JSON.stringify(newUser),
     });
     if (!response.ok) {
-      console.log('res ', response)
       if (Number(response?.status) === 409)
         throw new Error('User already exists');
       else 

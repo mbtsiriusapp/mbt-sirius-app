@@ -178,10 +178,6 @@ const UsersTable = ({ users }) => {
               }
             }
 
-            console.log('[...userlevel][0] ', [...userlevel][0])
-            console.log('[...userlevel][0] ', [...initialUserLevel][0])
-            console.log('[...userlevel][0] ', [...userlevel][0] === [ ...initialUserLevel][0])
-
             // if the user level is updated, send it in request body
             if ([...userlevel][0] !== [ ...initialUserLevel][0]) {
               updatedUser = {

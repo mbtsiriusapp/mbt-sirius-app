@@ -1,12 +1,10 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import AdminsTable from '../components/AdminsTable';
 import UsersTable from '../components/UsersTable';
-import { useUser } from '../utils/UserProvider';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import fetchUsersList from '../services/fetchUsersList';
-import { BASE_URL, BASE_URL2 } from '../services/const';
-import Cookies from "js-cookie";
-import toast, { Toaster } from 'react-hot-toast';
+import { useUser } from '../utils/UserProvider';
 
 const AdminDashboard = () => {
   // logged in user state

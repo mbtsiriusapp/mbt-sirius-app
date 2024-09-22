@@ -10,7 +10,6 @@ const updatedUser = async (userToUpdate) => {
 
     for (const key in userToUpdate) {
       if (userToUpdate.hasOwnProperty(key) && key !== 'userId') { // Check if the property is not inherited
-          console.log(`${key}: ${userToUpdate[key]}`);
           userToUpdateWithoutId[key] = userToUpdate[key]; // Copy the property to the clone object
       }
     }

@@ -1,17 +1,16 @@
 // src/VideoList.js
 import { Button, Card, CardBody, Image, Modal, ModalBody, ModalContent, ModalHeader, Spinner, useDisclosure } from '@nextui-org/react';
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import toast, { Toaster } from 'react-hot-toast';
 import { FaCirclePlay, FaLock } from 'react-icons/fa6';
 import LevelOneThumbnail from '../assets/Level1.jpg';
 import LevelTwoThumbnail from '../assets/Level2.jpg';
+import fetchVideos from '../services/fetchVideos';
+import { useUser } from '../utils/UserProvider';
 import { useVideoContext } from '../utils/VideoListProvider';
 import VideoPlayer from './VideoPlayer';
-import Cookies from "js-cookie";
-import { useQuery } from '@tanstack/react-query';
-import fetchVideos from '../services/fetchVideos';
-import toast, { Toaster } from 'react-hot-toast';
-import { useUser } from '../utils/UserProvider';
 
 /* 
     User level L2 - all videos play button
@@ -25,8 +24,6 @@ const VideoList = () => {
     const { dispatch } = useVideoContext();
     const [ selectedVideo, setSelectedVideo ] = useState(null);
     const { state } = useUser();
-
-    console.log('state ', state?.user?.role)
 
     const { data, error, isLoading } = useQuery({
       queryKey: ['videos'],

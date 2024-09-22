@@ -1,14 +1,13 @@
 // components/NotFound.js
 
 import { Button } from '@nextui-org/react';
-import { useUser } from '../utils/UserProvider';
-import { useNavigate } from 'react-router-dom';
-import { FaHome } from 'react-icons/fa';
 import React from 'react';
-import { MdHome } from 'react-icons/md';
+import { FaHome } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../utils/UserProvider';
 
 const NotFound = () => {
-  const { state, setUser } = useUser();
+  const { state } = useUser();
   const navigate = useNavigate();
 
   const handleGoToHomeBtnClick = () => {

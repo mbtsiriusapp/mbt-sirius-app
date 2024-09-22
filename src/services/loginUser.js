@@ -2,7 +2,6 @@ import toast from "react-hot-toast";
 import { BASE_URL } from "./const";
 
 const loginUser = async (userCredentials) => {
-  console.log('userCredentials', JSON.stringify(userCredentials))
     const response = await fetch(`https://7s56nrsp0d.execute-api.ap-south-1.amazonaws.com/Prod/login-manual`, {
       method: 'POST',
       headers: {
@@ -10,7 +9,6 @@ const loginUser = async (userCredentials) => {
       },
       body: JSON.stringify(userCredentials),
     });
-    console.log('response', response)
     if (!response.ok) {
       if (String(response?.status) === '401') {
         toast.error('Email or password incorrect');

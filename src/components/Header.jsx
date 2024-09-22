@@ -1,13 +1,13 @@
 // src/Header.js
-import { Button, Image, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@nextui-org/react';
-import React from 'react';
-import { MdDarkMode, MdLightMode, MdLogout } from "react-icons/md";
-import { FaRegUser } from "react-icons/fa";
-import logo from '../assets/logo.jpg'; // Tell Webpack this JS file uses this image
-import { Link } from 'react-router-dom';
-import { useUser } from '../utils/UserProvider';
-import { useTheme } from '../utils/ThemeProvider';
+import { Button, Image, Popover, PopoverContent, PopoverTrigger } from '@nextui-org/react';
 import { motion } from 'framer-motion';
+import React from 'react';
+import { FaRegUser } from "react-icons/fa";
+import { MdDarkMode, MdLightMode, MdLogout } from "react-icons/md";
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.jpg'; // Tell Webpack this JS file uses this image
+import { useTheme } from '../utils/ThemeProvider';
+import { useUser } from '../utils/UserProvider';
 
 const headerVariants = {
   hidden: { opacity: 0, y: -50 },
@@ -19,8 +19,6 @@ const Header = () => {
   const { logout, state } = useUser();
   const { theme, toggleTheme } = useTheme();
 
-  console.log('state ', state);
- 
   return (
     <motion.header
       initial="hidden"
