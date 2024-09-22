@@ -1,6 +1,6 @@
 {
   "name": "mbt-sirius-app",
-  "proxy": "https://6mpokdfi86.execute-api.ap-south-1.amazonaws.com/Prod",
+  "homepage": ".",
   "private": true,
   "version": "0.0.0",
   "type": "module",
