@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { createBrowserRouter, HashRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
