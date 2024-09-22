@@ -282,6 +282,7 @@ const AdminsTable = ({ admins }) => {
         isOpen={isOpen} 
         onOpenChange={onOpenChange}
         placement="bottom-center"
+        scrollBehavior='inside'
         onClose={onModalClose}
       >
         <ModalContent>

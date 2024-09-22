@@ -6,16 +6,10 @@ import { useNavigate } from 'react-router-dom';
 
 const ProtectedRoutes = () => {
     const { state } = useUser();
-    const navigate = useNavigate();
 
     const { isAuthenticated } = state;
 
-    if (!isAuthenticated) {
-        navigate('/login');
-        return;
-    }
-
-    return <Layout />
+    return isAuthenticated ? <Layout /> : <Login />
 }
 
 export default ProtectedRoutes

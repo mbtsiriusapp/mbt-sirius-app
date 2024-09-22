@@ -334,11 +334,12 @@ const UsersTable = ({ users }) => {
         
         {/* Modal for creating / updating the user */}
         <Modal 
-        isOpen={isOpen} 
-        onOpenChange={onOpenChange}
-        placement="bottom-center"
-        onClose={onModalClose}
-      >
+          isOpen={isOpen} 
+          onOpenChange={onOpenChange}
+          placement="bottom-center"
+          onClose={onModalClose}
+          scrollBehavior='inside'
+        >
         <ModalContent>
           {(onClose) => (
             <>
