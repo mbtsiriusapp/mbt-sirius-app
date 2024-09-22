@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  transition: color .5s;
+}
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.video-player {
+  border: 1px solid rgba(245, 245, 245, .2);
+  border-radius: 10px;
+}
+
+.video-player video {
+  border-radius: 10px !important;
+}
+
+.video-list-item:hover img {
+  opacity: .5;
+  transition: all .2s;
+}
+
+.video-list-item:hover .hover-lock-svg,
+.video-list-item:hover .hover-play-svg {
+  display: block;
+}
+
+.logo {
+  animation: logoAnim 5s linear infinite;
+}
+
+@keyframes logoAnim {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
