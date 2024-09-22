@@ -42,9 +42,7 @@ function App() {
 
   return (
     <main>
-      <HashRouter>
-        <RouterProvider router={router} />
-      </HashRouter>
+      <RouterProvider router={router} />
     </main>
   )
 }
