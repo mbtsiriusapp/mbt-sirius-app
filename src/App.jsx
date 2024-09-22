@@ -12,7 +12,7 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: '/mbt-sirius-app',
       element: <ProtectedRoutes />,
       children: [
         {
@@ -22,7 +22,7 @@ function App() {
       ]
     },
     {
-      path: '/login',
+      path: '/mbt-sirius-app/login',
       element: <Login />
     },
     {
