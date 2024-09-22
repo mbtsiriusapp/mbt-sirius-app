@@ -31,7 +31,7 @@ const NotFound = () => {
         onClick={handleGoToHomeBtnClick}
       >
         <FaHome color='black' size={'1rem'} />
-        <span className=''>Go to Home</span>
+        <span className='text-black'>Go to Home</span>
       </Button>
     </div>
   );
