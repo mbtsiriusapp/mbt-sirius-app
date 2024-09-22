@@ -300,6 +300,7 @@ const AdminsTable = ({ admins }) => {
                     variant="bordered"
                     value={adminname}
                     onValueChange={setAdminName}
+                    size='lg'
                     required
                 />
                 <Input
@@ -311,6 +312,7 @@ const AdminsTable = ({ admins }) => {
                   variant="bordered"
                   value={adminmail}
                   onValueChange={setAdminEmail}
+                  size='lg'
                   required
                 />
                 <Input
@@ -323,6 +325,7 @@ const AdminsTable = ({ admins }) => {
                   variant="bordered"
                   value={adminpassword}
                   onValueChange={setAdminPassword}
+                  size='lg'
                   required
                 />
                 <Input
@@ -335,6 +338,7 @@ const AdminsTable = ({ admins }) => {
                   variant="bordered"
                   value={adminconfirmpassword}
                   onValueChange={setAdminConfirmPassword}
+                  size='lg'
                   required
                 />
                 

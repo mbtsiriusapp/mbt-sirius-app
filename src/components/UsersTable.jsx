@@ -355,6 +355,7 @@ const UsersTable = ({ users }) => {
                     variant="bordered"
                     value={username}
                     onValueChange={setUsername}
+                    size='lg'
                     required
                 />
                 <Input
@@ -366,6 +367,7 @@ const UsersTable = ({ users }) => {
                   variant="bordered"
                   value={useremail}
                   onValueChange={setUserEmail}
+                  size='lg'
                   required
                 />
                 <Input
@@ -378,6 +380,7 @@ const UsersTable = ({ users }) => {
                   variant="bordered"
                   value={userpassword}
                   onValueChange={setUserPassword}
+                  size='lg'
                   required
                 />
                 <Input
@@ -390,6 +393,7 @@ const UsersTable = ({ users }) => {
                   variant="bordered"
                   value={userconfirmpassword}
                   onValueChange={setUserConfirmPassword}
+                  size='lg'
                   required
                 />
                 {/* <Select 
@@ -414,6 +418,7 @@ const UsersTable = ({ users }) => {
                       selectedKeys={userlevel}
                       onSelectionChange={setUserLevel}
                       defaultSelectedKeys={['L1']}
+                      size='lg'
                   >
                     <SelectItem key={'L1'}>
                         L1
