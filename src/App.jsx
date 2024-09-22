@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, HashRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -12,7 +12,7 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: '/mbt-sirius-app',
+      path: '/',
       element: <ProtectedRoutes />,
       children: [
         {
@@ -22,7 +22,7 @@ function App() {
       ]
     },
     {
-      path: '/mbt-sirius-app/login',
+      path: '/login',
       element: <Login />
     },
     {
@@ -42,7 +42,9 @@ function App() {
 
   return (
     <main>
+      <HashRouter>
         <RouterProvider router={router} />
+      </HashRouter>
     </main>
   )
 }
