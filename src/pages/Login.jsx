@@ -35,7 +35,6 @@ const Login = () => {
   const mutation = useMutation({
     mutationFn: loginUser,  // Mutation function
     onSuccess: (user) => {
-      console.log('loggd in user', user);
       setUser({ ...user });
       
       navigate('/');
@@ -47,7 +46,6 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    console.log('Form Data Submitted:', data);
     // Handle form submission, e.g., send data to your authentication API
     const loginUserCredentials = {
       email: data?.email,
@@ -61,7 +59,7 @@ const Login = () => {
   }
 
   return (
-    <div className="flex w-full h-full items-center justify-center ">
+    <div className="flex w-full h-full items-center justify-center overflow-hidden">
       <Toaster position='top-right' />
         <div className="flex items-center justify-center min-h-screen w-[95%] max-w-[500px]">
           <motion.div

@@ -65,7 +65,7 @@ const VideoList = () => {
   }
     
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[1200px] mx-auto gap-8 my-12 px-2 xs:px-4'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[1200px] mx-auto gap-8 my-4 px-2 xs:px-4'>
       <Toaster position='top-right' />
       { state?.user?.level === 'L2' && videoList?.map((video) => (
         <div key={video.videoId} className='video-list-item h-full cursor-pointer' onClick={() => showVideoPlayer(video)}>

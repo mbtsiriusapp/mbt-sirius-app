@@ -41,7 +41,7 @@ const AdminDashboard = () => {
   }, [ isError ]);
 
   return (
-    <div className='max-w-[1200px] mx-auto my-12 p-2 sm:p-4 flex flex-col gap-8'>
+    <div className='max-w-[1200px] mx-auto my-4 p-2 sm:p-4 flex flex-col gap-8'>
       <Toaster position='top-right' />
       
       <UsersTable users={users} />
