@@ -25,7 +25,7 @@ const Header = () => {
       animate="visible"
       exit="exit"
       variants={headerVariants}
-      transition={{ duration: 0.8, ease: 'easeOut' }} className={`flex z-50 sticky top-0 left-0 right-0 justify-between items-center p-4 ${theme === 'dark' ? 'bg-black' : 'bg-white' }`}>
+      transition={{ duration: 0.8, ease: 'easeOut' }} className={`flex z-50 sticky justify-between items-center p-4 ${theme === 'dark' ? 'bg-black' : 'bg-white' }`}>
       {/* Logo Section */}
       <Link to='/'>
         <div className="flex items-center space-x-4">

@@ -21,6 +21,7 @@ const VideoPlayer = ({ selectedVideo, setSelectedVideo}) => {
         <div className="video-player w-full">
             <ReactPlayer
             url={selectedVideo?.videoLink }
+            config={{ file: { attributes: { controlsList: 'nodownload' } } }}
             playing={false}
             controls={true}
             volume={0.8}
