@@ -2,13 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --appHeight: 100vh;
+}
+
 body {
   transition: color .5s;
 }
 
 .App {
   width: 100vw;
-  height: 100vh;
+  height: var(--appHeight, 100vh);
   overflow: auto;
 }
 
