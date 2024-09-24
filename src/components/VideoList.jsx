@@ -2,7 +2,7 @@
 import { Button, Card, CardBody, Image, Modal, ModalBody, ModalContent, ModalHeader, Spinner, useDisclosure } from '@nextui-org/react';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
+import { isDesktop, isMobile } from 'react-device-detect';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaCirclePlay, FaLock } from 'react-icons/fa6';
 import LevelOneThumbnail from '../assets/Level1.jpg';
@@ -65,7 +65,7 @@ const VideoList = () => {
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[1200px] mx-auto gap-8 my-4 px-2 xs:px-4'>
       <Toaster position='top-right' />
       { state?.user?.level === 'L2' && videoList?.map((video) => (
-        <div key={video.videoId} className='video-list-item h-full cursor-pointer' onClick={() => showVideoPlayer(video)}>
+        <div key={video.videoId} className={`h-full cursor-pointer ${ isDesktop && 'video-list-item'}`} onClick={() => showVideoPlayer(video)}>
             <Card className='p-4 pb-1 rounded-md h-full relative'>
                 <Image
                     src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
@@ -83,7 +83,7 @@ const VideoList = () => {
       )) }
 
       { state?.user?.level === 'L1' && videoList?.map(video => video.videoLevel === 'L1' ? (
-        <div key={video.videoId} className='relative video-list-item' onClick={() => showVideoPlayer(video)}>
+        <div key={video.videoId} className={`relative ${ isDesktop && 'video-list-item' }`} onClick={() => showVideoPlayer(video)}>
           <Card className='p-4 pb-1 rounded-md h-full'>
               <Image
                   src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
@@ -102,7 +102,7 @@ const VideoList = () => {
           </Card>
         </div>
       ) : (
-        <div key={video.videoId} className='relative video-list-item'>
+        <div key={video.videoId} className={`relative ${ isDesktop && 'video-list-item' }`}>
           <Card isPressable className='p-4 pb-1 rounded-md h-full' onPress={onOpen}>
             <Image
                 src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
