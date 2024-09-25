@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { BASE_URL } from "./const";
+import toast from "react-hot-toast";
 
 const fetchVideos = async () => {
   const response = await fetch(`${BASE_URL}Prod/video/`, {
@@ -10,7 +11,12 @@ const fetchVideos = async () => {
   });
 
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    if (String(response?.status) === '403' || String(response?.status) === '500') {
+      toast.error('Session timed out');
+      window.location.href = '/login';
+    } else {
+      toast.error('Error occurred while fetching the videos!! Please try again');
+    }
   }
   
   return response.json();

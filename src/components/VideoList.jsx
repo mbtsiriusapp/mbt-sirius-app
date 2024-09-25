@@ -38,12 +38,6 @@ const VideoList = () => {
       }
     }, [data]);
 
-    useEffect(() => {
-      if (error) {
-        toast.error('Error while fetching the videos, please try again after some time')
-      }
-    }, [ error ]);
-
     const showVideoPlayer = (video) => {
         setSelectedVideo(video);
     };
