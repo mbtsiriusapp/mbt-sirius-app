@@ -1,10 +1,10 @@
 import Cookies from "js-cookie";
-import { BASE_URL2 } from "./const";
+import { BASE_URL } from "./const";
 
 const createUser = async (newUser) => {
     if (!newUser) return;
 
-    const response = await fetch(`https://6mpokdfi86.execute-api.ap-south-1.amazonaws.com/Prod/user`, {
+    const response = await fetch(`${BASE_URL}Prod/user`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${Cookies.get('auth-token')}`,

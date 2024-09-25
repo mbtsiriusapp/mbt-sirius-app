@@ -5,7 +5,6 @@ import AdminsTable from '../components/AdminsTable';
 import UsersTable from '../components/UsersTable';
 import fetchUsersList from '../services/fetchUsersList';
 import { useUser } from '../utils/UserProvider';
-
 const AdminDashboard = () => {
   // logged in user state
   const { state } = useUser();
@@ -13,7 +12,9 @@ const AdminDashboard = () => {
   // Fetching all users based on user role
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['users', state?.user?.role ],
-    queryFn: fetchUsersList
+    queryFn: fetchUsersList,
+    retry: 0, // Retry failed requests up to 2 times
+    retryDelay: 1000, // Wait 1 second before retrying,
   })
 
   const [ users, setUsers ] = useState([]);
@@ -31,12 +32,6 @@ const AdminDashboard = () => {
       // toast.success('User data fetched successfully');
     } 
   }, [data]);
-
-  useEffect(() => {
-    if (isError) {
-      toast.error('Error fetching user data! Please try again after some time')
-    }
-  }, [ isError ]);
 
   return (
     <div className='max-w-[1200px] mx-auto my-4 p-2 sm:p-4 flex flex-col gap-8'>

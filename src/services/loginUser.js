@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import { BASE_URL } from "./const";
 
 const loginUser = async (userCredentials) => {
-    const response = await fetch(`https://7s56nrsp0d.execute-api.ap-south-1.amazonaws.com/Prod/login-manual`, {
+    const response = await fetch(`${BASE_URL}Prod/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

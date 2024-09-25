@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { BASE_URL2 } from "./const";
+import { BASE_URL } from "./const";
 
 const updatedUser = async (userToUpdate) => {
     const userToUpdateWithoutId = {};
@@ -14,7 +14,7 @@ const updatedUser = async (userToUpdate) => {
       }
     }
 
-    const response = await fetch(`https://6mpokdfi86.execute-api.ap-south-1.amazonaws.com/Prod/user/${userId}`, {
+    const response = await fetch(`${BASE_URL}Prod/user/${userId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${Cookies.get('auth-token')}`,

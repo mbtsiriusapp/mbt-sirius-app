@@ -1,10 +1,10 @@
-import { BASE_URL, BASE_URL2 } from "./const";
 import Cookies from "js-cookie";
+import { BASE_URL } from "./const";
 
 const deleteUser = async (userId) => {
     if (!userId) return;
 
-    const response = await fetch(`https://6mpokdfi86.execute-api.ap-south-1.amazonaws.com/Prod/user/${userId}`, {
+    const response = await fetch(`${BASE_URL}Prod/user/${userId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${Cookies.get('auth-token')}`,

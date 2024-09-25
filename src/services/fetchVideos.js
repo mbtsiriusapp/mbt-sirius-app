@@ -1,8 +1,8 @@
-import { BASE_URL, BASE_URL2 } from "./const";
 import Cookies from "js-cookie";
+import { BASE_URL } from "./const";
 
 const fetchVideos = async () => {
-  const response = await fetch(`https://6mpokdfi86.execute-api.ap-south-1.amazonaws.com/Prod/video/`, {
+  const response = await fetch(`${BASE_URL}Prod/video/`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${Cookies.get('auth-token')}`,
