@@ -44,16 +44,15 @@ const VideoList = () => {
         setSelectedVideo(video);
     };
 
-  if (selectedVideo) {
-    return <VideoPlayer selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
-  }
-
   useEffect(() => {
-    console.log('error ', error);
     if (isError && error === 'Not Authorized') {
       logout();
     }
-  }, [isError, error])
+  }, [isError, error]);
+
+  if (selectedVideo) {
+    return <VideoPlayer selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
+  }
 
   if (isLoading) {
     return (
