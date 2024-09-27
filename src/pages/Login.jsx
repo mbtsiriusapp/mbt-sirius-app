@@ -11,6 +11,7 @@ import { z } from 'zod';
 import Logo from '../assets/logo.jpg';
 import loginUser from '../services/loginUser';
 import { useUser } from '../utils/UserProvider';
+import { FaLock, FaUnlockAlt } from 'react-icons/fa';
 
 // Define the schema for vali/* d */ation using Zod
 const schema = z.object({
@@ -23,6 +24,7 @@ const Login = () => {
   const [ password, setPassword ] = useState('');
   const { state, setUser } = useUser();
   const navigate = useNavigate();
+  const [ showPassword, setShowPassword ] = useState(false);
 
   const {
     register,
@@ -52,6 +54,8 @@ const Login = () => {
     } 
      mutation.mutate(loginUserCredentials);
   };
+
+  const LockUnlockPassword = () => !showPassword ? (<FaUnlockAlt className="text-2xl text-default-400 flex-shrink-0 cursor-pointer" onClick={() => setShowPassword(!showPassword)} />) : (<FaLock className="text-2xl text-default-400 flex-shrink-0 cursor-pointer" onClick={() => setShowPassword(!showPassword)} />)
 
   if (state?.isAuthenticated) {
     navigate('/');
@@ -106,7 +110,7 @@ const Login = () => {
                 >
                   <Input
                       label="Password"
-                      type="password"
+                      type={ showPassword ? 'text' : 'password' }
                       {...register('password')}
                       aria-invalid={errors.password ? 'true' : 'false'}
                       value={password}
@@ -114,6 +118,7 @@ const Login = () => {
                       labelPlacement='inside'
                       placeholder='Enter your password'
                       size='lg'
+                      endContent={ <LockUnlockPassword />  }
                   />
                   {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
                 </motion.div>
