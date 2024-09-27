@@ -13,11 +13,8 @@ import { useVideoContext } from '../utils/VideoListProvider';
 import VideoPlayer from './VideoPlayer';
 import { useNavigate } from 'react-router-dom';
 
-/* 
-    User level L2 - all videos play button
-    User level L1 - only videos in L1 level play button
-    User level L1 - L2 videos lock button
-*/
+const phoneNumber = '+919205104695'; // Replace with the actual phone number
+const message = 'Hello! I would like to get L2 access for MBT-Sirius'; // Message you want to pre-fill
 
 const VideoList = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -45,7 +42,7 @@ const VideoList = () => {
     };
 
   useEffect(() => {
-    if (isError && error === 'Not Authorized') {
+    if (isError) {
       logout();
     }
   }, [isError, error]);
@@ -53,6 +50,11 @@ const VideoList = () => {
   if (selectedVideo) {
     return <VideoPlayer selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
   }
+
+  const handleClick = () => {
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   if (isLoading) {
     return (
@@ -134,7 +136,7 @@ const VideoList = () => {
               <p className='text-center'>
                 User access is restricted to watch only the Level 1 video content
               </p>
-              <Button size={`${isMobile ? 'md' : 'lg' }`} className='bg-[#ff6b6b] text-white px-6'>Get L2 Access</Button>
+              <Button onPress={handleClick} size={`${isMobile ? 'md' : 'lg' }`} className='bg-[#ff6b6b] text-white px-6'>Get L2 Access</Button>
             </ModalBody>
           </>
         )}
