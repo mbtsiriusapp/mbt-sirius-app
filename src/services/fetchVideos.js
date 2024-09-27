@@ -11,9 +11,9 @@ const fetchVideos = async () => {
   });
 
   if (!response.ok) {
-    if (String(response?.status) === '403' || String(response?.status) === '500') {
+    if (String(response?.status) === '403') {
       toast.error('Session timed out');
-      window.location.href = '/login';
+      throw new Error('Not Authorized');
     } else {
       toast.error('Error occurred while fetching the videos!! Please try again');
     }

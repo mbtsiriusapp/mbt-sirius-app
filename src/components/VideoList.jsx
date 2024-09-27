@@ -11,6 +11,7 @@ import fetchVideos from '../services/fetchVideos';
 import { useUser } from '../utils/UserProvider';
 import { useVideoContext } from '../utils/VideoListProvider';
 import VideoPlayer from './VideoPlayer';
+import { useNavigate } from 'react-router-dom';
 
 /* 
     User level L2 - all videos play button
@@ -23,9 +24,10 @@ const VideoList = () => {
     const [ videoList, setVideoList ] = useState([]);
     const { dispatch } = useVideoContext();
     const [ selectedVideo, setSelectedVideo ] = useState(null);
-    const { state } = useUser();
+    const { state, logout } = useUser();
+    const navigate = useNavigate();
 
-    const { data, error, isLoading } = useQuery({
+    const { data, error, isLoading, isError } = useQuery({
       queryKey: ['videos'],
       queryFn: fetchVideos,
       retry: 0, // Retry failed requests up to 2 times
@@ -45,6 +47,13 @@ const VideoList = () => {
   if (selectedVideo) {
     return <VideoPlayer selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
   }
+
+  useEffect(() => {
+    console.log('error ', error);
+    if (isError && error === 'Not Authorized') {
+      logout();
+    }
+  }, [isError, error])
 
   if (isLoading) {
     return (

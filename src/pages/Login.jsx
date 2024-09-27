@@ -40,7 +40,7 @@ const Login = () => {
       navigate('/');
     },
     onError: (error) => {
-      toast.error('Error logging in! Check your credentials');
+      // toast.error('Error logging in! Check your credentials');
     }
   });
 
