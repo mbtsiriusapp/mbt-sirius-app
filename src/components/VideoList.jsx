@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react';
 import { isDesktop, isMobile } from 'react-device-detect';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaCirclePlay, FaLock } from 'react-icons/fa6';
-import LevelOneThumbnail from '../assets/Level1.jpg';
-import LevelTwoThumbnail from '../assets/Level2.jpg';
+import LevelOneThumbnail from '../assets/Level-1.png';
+import LevelTwoThumbnail from '../assets/Level-2.png';
 import fetchVideos from '../services/fetchVideos';
 import { useUser } from '../utils/UserProvider';
 import { useVideoContext } from '../utils/VideoListProvider';
@@ -38,7 +38,7 @@ const VideoList = () => {
     }, [data]);
 
     const showVideoPlayer = (video) => {
-        setSelectedVideo(video);
+      setSelectedVideo(video);
     };
 
   useEffect(() => {
@@ -66,21 +66,22 @@ const VideoList = () => {
   }
     
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[1200px] mx-auto gap-8 my-4 px-2 xs:px-4'>
+    <div className='grid grid-cols-1 md:grid-cols-2 max-w-[1200px] mx-auto gap-8 my-4 px-2 xs:px-4'>
       <Toaster position='top-right' />
       { state?.user?.level === 'L2' && videoList?.map((video) => (
         <div key={video.videoId} className={`h-full cursor-pointer ${ isDesktop && 'video-list-item'}`} onClick={() => showVideoPlayer(video)}>
             <Card className='p-4 pb-1 rounded-md h-full relative'>
                 <Image
-                    src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
-                    objectFit="contain"
-                    width="100%"
-                    alt={video.videoTitle	}
-                    className='aspect-square rounded-md'
+                  src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
+                  objectFit="contain"
+                  width="100%"
+                  alt={video.videoTitle	}
+                  className='aspect-video rounded-md'
                 />
                 <FaCirclePlay className='hidden hover-play-svg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10' size={'3rem'} color={'#ff6b6b'} />
             <CardBody>
                 <h4 className='bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent'>{video.videoTitle	}</h4>
+                <p className='text-default-500 text-xs md:text-sm'>Tarot reading unveils hidden truths, offering guidance through symbolic imagery and intuition.</p>
             </CardBody>
             </Card>
         </div>
@@ -100,6 +101,7 @@ const VideoList = () => {
               <CardBody>
                   <div className="flex flex-col gap-3">
                       <h4 className='bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent'>{video.videoTitle	}</h4>
+                      <p className='text-default-500 text-xs md:text-sm'>Tarot reading unveils hidden truths, offering guidance through symbolic imagery and intuition.</p>
                       <FaCirclePlay size={'1rem'} className={`${isMobile ? 'block' : 'hidden' }`} color='#ff6b6b' />
                   </div>
               </CardBody>
@@ -118,8 +120,9 @@ const VideoList = () => {
             <FaLock className='hidden hover-lock-svg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10' size={'3rem'} color={'#ff6b6b'} />
             <CardBody>
                 <div className="flex flex-col gap-3">
-                    <h4 className='bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent'>{video.videoTitle}</h4>
-                    <FaLock size={'1rem'} className={`${isMobile ? 'block' : 'hidden' }`} color='#ff6b6b' />
+                  <h4 className='bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent'>{video.videoTitle}</h4>
+                  <p className='text-default-500 text-xs md:text-sm'>Tarot reading unveils hidden truths, offering guidance through symbolic imagery and intuition.</p>
+                  <FaLock size={'1rem'} className={`${isMobile ? 'block' : 'hidden' }`} color='#ff6b6b' />
                 </div>
             </CardBody>
           </Card>
