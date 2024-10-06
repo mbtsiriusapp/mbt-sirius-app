@@ -11,6 +11,8 @@ import useCreateUserMutation from '../hooks/useCreateUserMutation';
 import useUpdatedUserMutation from '../hooks/useUpdateUserMutation';
 import useDeleteUserMutation from '../hooks/useDeleteUserMutation';
 import { handleCopy } from '../shared';
+import { RiStickyNoteAddFill } from 'react-icons/ri';
+import cryptoRandomString from 'crypto-random-string';
 
   const tableVariants = {
     hidden: { opacity: 0, y: 25 },
@@ -42,14 +44,12 @@ const AdminsTable = ({ admins }) => {
     const [ adminname, setAdminName ] = useState('');
     const [ adminmail, setAdminEmail ] = useState('');
     const [ adminpassword, setAdminPassword ] = useState('');
-    const [ adminconfirmpassword, setAdminConfirmPassword ] = useState('');
     const [ showPassword, setShowPassword ] = useState(false);
 
     // variables to have initial values for admin
     const [ initialAdminName, setInitialAdminName ] = useState('');
     const [ initialAdminEmail, setInitialAdminEmail ] = useState('');
     const [ initialAdminPassword, setInitialAdminPassword ] = useState('');
-    // const [ initialAdminConfirmPassword, setInitialAdminConfirmPassword ] = useState('');
     
     const [ adminToDelete, setAdminToDelete ] = React.useState(null);
     const [ adminKeyToEdit, setAdminKeyToEdit ] = React.useState(null);
@@ -91,76 +91,69 @@ const AdminsTable = ({ admins }) => {
         setAdminName(user.name);
         setAdminEmail(user.email);
         setAdminPassword(user.password);
-        setAdminConfirmPassword(user.password);
         setEditBtnClicked(true);
 
         setInitialAdminName(user.name);
         setInitialAdminEmail(user.email);
         setInitialAdminPassword(user.password);
-        // setInitialAdminConfirmPassword(user.password);
         onOpen();
     }
 
     const onCreateOrUpdateUser = () => {
-        if(adminname && adminmail && adminpassword && adminconfirmpassword){
-            if(adminpassword === adminconfirmpassword){
+      if(adminname && adminmail && adminpassword){
+        if (editBtnClicked) {
+          // check if any of the fields are updated
+          if (adminname === initialAdminName && adminmail === initialAdminEmail && adminpassword === initialAdminPassword){
+            // no fields are updated, hence return from the method
+            return;
+          }
 
-                if (editBtnClicked) {
-                  // check if any of the fields are updated
-                  if (adminname === initialAdminName && adminmail === initialAdminEmail && adminpassword === initialAdminPassword){
-                    // no fields are updated, hence return from the method
-                    return;
-                  }
+          let updatedUser = {
+            userId: adminKeyToEdit
+          }
 
-                  let updatedUser = {
-                    userId: adminKeyToEdit
-                  }
-
-                  // if the admin name is updated, send it in request body
-                  if (adminname !== initialAdminName) {
-                    updatedUser = {
-                      ...updatedUser,
-                      name: adminname,
-                    }
-                  }
-
-                  // if the admin mail is updated, send it in request body
-                  if (adminmail !== initialAdminEmail) {
-                    updatedUser = {
-                     ...updatedUser,
-                      email: adminmail,
-                    }
-                  }
-
-                  // if the admin password is updated, send it in request body
-                  if (adminpassword !== initialAdminPassword) {
-                    updatedUser = {
-                     ...updatedUser,
-                      password: adminpassword,
-                    }
-                  }
-
-                  // update the user
-                  updateUserMutation?.mutate(updatedUser);
-                } else {
-                    const newAdmin = {
-                        name: adminname,
-                        email: adminmail,
-                        password: adminpassword,
-                        role: 'admin',
-                    }
-
-                    createUserMutation.mutate(newAdmin);
-                }
-                onClose();
-                setEditBtnClicked(false);
-                resetFormFields();
-            } else {
-              toast.error('Passwords do not match');
+          // if the admin name is updated, send it in request body
+          if (adminname !== initialAdminName) {
+            updatedUser = {
+              ...updatedUser,
+              name: adminname,
             }
+          }
+
+          // if the admin mail is updated, send it in request body
+          if (adminmail !== initialAdminEmail) {
+            updatedUser = {
+              ...updatedUser,
+              email: adminmail,
+            }
+          }
+
+          // if the admin password is updated, send it in request body
+          if (adminpassword !== initialAdminPassword) {
+            updatedUser = {
+              ...updatedUser,
+              password: adminpassword,
+            }
+          }
+
+          // update the user
+          updateUserMutation?.mutate(updatedUser);
         } else {
-          toast.error('All fields are required');
+            const newAdmin = {
+                name: adminname,
+                email: adminmail,
+                password: adminpassword,
+                role: 'admin',
+            }
+
+            createUserMutation.mutate(newAdmin);
         }
+        onClose();
+        setEditBtnClicked(false);
+        resetFormFields();
+      } else {
+        toast.error('All fields are required');
+      }
     }
 
     const onModalClose = () => {
@@ -177,6 +170,11 @@ const AdminsTable = ({ admins }) => {
       setInitialAdminEmail('');
       setInitialAdminPassword('');
     }
+
+    const generateRandomPassword = () => {
+      const newPassword = cryptoRandomString({ length: 12, type: 'base64' });
+      setAdminPassword(newPassword);
+    };
 
   return (
     <>
@@ -318,7 +316,10 @@ const AdminsTable = ({ admins }) => {
                 />
                 <Input
                   endContent={
-                    <LockUnlockPassword />
+                    <div className='flex justify-center items-center gap-2'>
+                      <RiStickyNoteAddFill className='text-2xl text-default-400 flex-shrink-0 cursor-pointer' onClick={generateRandomPassword} />
+                      <LockUnlockPassword /> 
+                    </div>
                   }
                   label="Password"
                   placeholder="Enter the admin's password..."
@@ -326,19 +327,6 @@ const AdminsTable = ({ admins }) => {
                   variant="bordered"
                   value={adminpassword}
                   onValueChange={setAdminPassword}
-                  size='lg'
-                  required
-                />
-                <Input
-                  endContent={
-                    <LockUnlockConfirmPassword />
-                  }
-                  label="Confirm Password"
-                  placeholder="Confirm the admin's password..."
-                  type={ showConfirmPassword ? 'text' : "password" }
-                  variant="bordered"
-                  value={adminconfirmpassword}
-                  onValueChange={setAdminConfirmPassword}
                   size='lg'
                   required
                 />

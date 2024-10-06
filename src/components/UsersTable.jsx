@@ -1,4 +1,5 @@
 import { Button, Divider, getKeyValue, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Pagination, Popover, PopoverContent, PopoverTrigger, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, useDisclosure } from '@nextui-org/react';
+import cryptoRandomString from 'crypto-random-string';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -6,6 +7,7 @@ import { FaLock, FaRegUserCircle, FaUnlockAlt } from 'react-icons/fa';
 import { FaKey, FaUser } from 'react-icons/fa6';
 import { IoPersonAdd } from 'react-icons/io5';
 import { MdDelete, MdEdit, MdEmail } from 'react-icons/md';
+import { RiStickyNoteAddFill } from 'react-icons/ri';
 import useCreateUserMutation from '../hooks/useCreateUserMutation';
 import useDeleteUserMutation from '../hooks/useDeleteUserMutation';
 import useUpdatedUserMutation from '../hooks/useUpdateUserMutation';
@@ -78,7 +80,6 @@ const UsersTable = ({ users }) => {
     const [ username, setUsername ] = useState('');
     const [ useremail, setUserEmail ] = useState('');
     const [ userpassword, setUserPassword ] = useState('');
-    const [ userconfirmpassword, setUserConfirmPassword ] = useState('');
     const [ userlevel, setUserLevel ] = useState(new Set(['L1']));
 
     // variables to have initial values for users
@@ -127,7 +128,6 @@ const UsersTable = ({ users }) => {
         setUsername(user.name);
         setUserEmail(user.email);
         setUserPassword(user.password);
-        setUserConfirmPassword(user.password);
         setUserLevel(new Set([user?.level]));
         setEditBtnClicked(true);
 
@@ -139,71 +139,72 @@ const UsersTable = ({ users }) => {
         onOpen();
     }
 
+    const generateRandomPassword = () => {
+      const newPassword = cryptoRandomString({ length: 12, type: 'base64' });
+      setUserPassword(newPassword);
+    };
+
     const onCreateOrUpdateUser = () => {
-      if(username && useremail && userpassword && userconfirmpassword && userlevel){
-        if(userpassword === userconfirmpassword){
-          if (editBtnClicked) {
-            // check if any of the fields are updated
-            if (username === initialUserName && useremail === initialUserEmail && userpassword === initialUserPassword && [...userlevel][0] === [ ...initialUserLevel][0]){
-              // no fields are updated, hence return from the method
-              onClose();
-              return;
-            }
-
-            let updatedUser = {
-              userId: userKeyToEdit,
-            }
-
-            // if the user name is updated, send it in request body
-            if (username !== initialUserName) {
-              updatedUser = {
-                ...updatedUser,
-                name: username,
-              }
-            }
-
-            // if the user mail is updated, send it in request body
-            if (useremail !== initialUserEmail) {
-              updatedUser = {
-                ...updatedUser,
-                email: useremail,
-              }
-            }
-
-            // if the user password is updated, send it in request body
-            if (userpassword !== initialUserPassword) {
-              updatedUser = {
-                ...updatedUser,
-                password: userpassword,
-              }
-            }
-
-            // if the user level is updated, send it in request body
-            if ([...userlevel][0] !== [ ...initialUserLevel][0]) {
-              updatedUser = {
-                ...updatedUser,
-                level: [ ...userlevel ][0] || 'L1',
-              }
-            }
-
-            updateUserMutation?.mutate(updatedUser);
-          } else {
-              const newUser = {
-                  name: username,
-                  email: useremail,
-                  password: userpassword,
-                  level: [ ...userlevel ][0] || 'L1',
-                  role: 'user',
-              }
-
-              createUserMutation.mutate(newUser);
+      if(username && useremail && userpassword && userlevel){
+        if (editBtnClicked) {
+          // check if any of the fields are updated
+          if (username === initialUserName && useremail === initialUserEmail && userpassword === initialUserPassword && [...userlevel][0] === [ ...initialUserLevel][0]){
+            // no fields are updated, hence return from the method
+            onClose();
+            return;
           }
-          onClose();
-          setEditBtnClicked(false);
-          resetFormFields();
+
+          let updatedUser = {
+            userId: userKeyToEdit,
+          }
+
+          // if the user name is updated, send it in request body
+          if (username !== initialUserName) {
+            updatedUser = {
+              ...updatedUser,
+              name: username,
+            }
+          }
+
+          // if the user mail is updated, send it in request body
+          if (useremail !== initialUserEmail) {
+            updatedUser = {
+              ...updatedUser,
+              email: useremail,
+            }
+          }
+
+          // if the user password is updated, send it in request body
+          if (userpassword !== initialUserPassword) {
+            updatedUser = {
+              ...updatedUser,
+              password: userpassword,
+            }
+          }
+
+          // if the user level is updated, send it in request body
+          if ([...userlevel][0] !== [ ...initialUserLevel][0]) {
+            updatedUser = {
+              ...updatedUser,
+              level: [ ...userlevel ][0] || 'L1',
+            }
+          }
+
+          updateUserMutation?.mutate(updatedUser);
         } else {
-            toast.error('Passwords do not match');
+            const newUser = {
+                name: username,
+                email: useremail,
+                password: userpassword,
+                level: [ ...userlevel ][0] || 'L1',
+                role: 'user',
+            }
+
+            createUserMutation.mutate(newUser);
         }
+        onClose();
+        setEditBtnClicked(false);
+        resetFormFields();
       } else {
           toast.error('All fields are required');
       }
@@ -218,7 +219,6 @@ const UsersTable = ({ users }) => {
       setUsername('');
       setUserEmail('');
       setUserPassword('');
-      setUserConfirmPassword('');
       setUserLevel(new Set(['L1']));
 
       // reset initial values
@@ -369,7 +369,10 @@ const UsersTable = ({ users }) => {
                 />
                 <Input
                   endContent={
-                    <LockUnlockPassword /> 
+                    <div className='flex justify-center items-center gap-2'>
+                      <RiStickyNoteAddFill className='text-2xl text-default-400 flex-shrink-0 cursor-pointer' onClick={generateRandomPassword} />
+                      <LockUnlockPassword /> 
+                    </div>
                   }
                   label={'Password'}
                   placeholder="Enter the user's password..."
@@ -377,19 +380,6 @@ const UsersTable = ({ users }) => {
                   variant="bordered"
                   value={userpassword}
                   onValueChange={setUserPassword}
-                  size='lg'
-                  required
-                />
-                <Input
-                  endContent={
-                    <LockUnlockConfirmPassword />
-                  }
-                  label="Confirm Password"
-                  placeholder="Confirm the user's password..."
-                  type={ showConfirmPassword ? 'text' : "password" }
-                  variant="bordered"
-                  value={userconfirmpassword}
-                  onValueChange={setUserConfirmPassword}
                   size='lg'
                   required
                 />
