@@ -1,6 +1,6 @@
 // pages/login.tsx
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Image, Input, Spacer } from '@nextui-org/react';
+import { Button, Image, Input, Link, Spacer } from '@nextui-org/react';
 import { useMutation } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
@@ -53,6 +53,11 @@ const Login = () => {
       password: data?.password,
     } 
      mutation.mutate(loginUserCredentials);
+  };
+
+  const handleClick = () => {
+    const whatsappUrl = `https://wa.me/${+919205104695}?text=${encodeURIComponent("I forgot my credentials, please share it once again.")}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const LockUnlockPassword = () => !showPassword ? (<FaUnlockAlt className="text-2xl text-default-400 flex-shrink-0 cursor-pointer" onClick={() => setShowPassword(!showPassword)} />) : (<FaLock className="text-2xl text-default-400 flex-shrink-0 cursor-pointer" onClick={() => setShowPassword(!showPassword)} />)
@@ -122,12 +127,19 @@ const Login = () => {
                   />
                   {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
                 </motion.div>
-                {/* <Link className='text-end block'>Forget Password?</Link> */}
+
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 1.1 }}
+                >
+                  <Link className='text-end block cursor-pointer' onClick={handleClick}>Forgot Password?</Link>
+                </motion.div>
                 <Spacer y={1} />
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 1.1 }}
+                  transition={{ duration: 0.5, delay: 1.3 }}
                 >
                   <Button type="submit" size='lg' className='bg-[#ff6b6b] w-full text-black'>
                   Login

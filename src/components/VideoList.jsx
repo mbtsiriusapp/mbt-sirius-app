@@ -3,15 +3,15 @@ import { Button, Card, CardBody, Image, Modal, ModalBody, ModalContent, ModalHea
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { isDesktop, isMobile } from 'react-device-detect';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { FaCirclePlay, FaLock } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 import LevelOneThumbnail from '../assets/Level-1.png';
 import LevelTwoThumbnail from '../assets/Level-2.png';
 import fetchVideos from '../services/fetchVideos';
 import { useUser } from '../utils/UserProvider';
 import { useVideoContext } from '../utils/VideoListProvider';
 import VideoPlayer from './VideoPlayer';
-import { useNavigate } from 'react-router-dom';
 
 const phoneNumber = '+919205104695'; // Replace with the actual phone number
 const message = 'Hello! I would like to get L2 access for MBT-Sirius'; // Message you want to pre-fill
@@ -66,7 +66,7 @@ const VideoList = () => {
   }
     
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 max-w-[1200px] mx-auto gap-8 my-4 px-2 xs:px-4'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-auto gap-8 my-4 px-2 xs:px-4'>
       <Toaster position='top-right' />
       { state?.user?.level === 'L2' && videoList?.map((video) => (
         <div key={video.videoId} className={`h-full cursor-pointer ${ isDesktop && 'video-list-item'}`} onClick={() => showVideoPlayer(video)}>
