@@ -4,6 +4,7 @@
 
 :root {
   --appHeight: 100vh;
+  --appHeight: 100vw;
 }
 
 body {
@@ -11,7 +12,7 @@ body {
 }
 
 .App {
-  width: 100vw;
+  width: var(--appWidth, 100vw);
   height: var(--appHeight, 100vh);
   overflow: auto;
 }
