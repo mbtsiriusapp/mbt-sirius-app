@@ -4,7 +4,7 @@ import { BASE_URL } from "./const";
 const deleteUser = async (userId) => {
     if (!userId) return;
 
-    const response = await fetch(`${BASE_URL}Prod/user/${userId}`, {
+    const response = await fetch(`${BASE_URL}/user/${userId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${Cookies.get('auth-token')}`,
