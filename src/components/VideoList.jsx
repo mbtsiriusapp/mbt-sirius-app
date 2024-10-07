@@ -70,18 +70,20 @@ const VideoList = () => {
       <Toaster position='top-right' />
       { state?.user?.level === 'L2' && videoList?.map((video) => (
         <div key={video.videoId} className={`h-full cursor-pointer ${ isDesktop && 'video-list-item'}`} onClick={() => showVideoPlayer(video)}>
-            <Card className='p-4 pb-1 rounded-md h-full relative'>
+            <Card className='p-4 pb-1 rounded-md h-full'>
+              <div className="relative">
                 <Image
-                  src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
-                  objectFit="contain"
-                  width="100%"
-                  alt={video.videoTitle	}
-                  className='aspect-video rounded-md'
-                />
-                <FaCirclePlay className='hidden hover-play-svg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10' size={'3rem'} color={'#ff6b6b'} />
+                src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
+                objectFit="contain"
+                width="100%"
+                alt={video.videoTitle	}
+                className='aspect-video rounded-md'
+              />
+              <FaCirclePlay className='hidden hover-play-svg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10' size={'3rem'} color={'#ff6b6b'} />
+              </div>
             <CardBody>
                 <h4 className='bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent'>{video.videoTitle	}</h4>
-                <p className='text-default-500 text-xs md:text-sm'>Tarot reading unveils hidden truths, offering guidance through symbolic imagery and intuition.</p>
+                { video?.videoDescription	&& <p className='text-default-500 text-xs md:text-sm'>{ video?.videoDescription	 }</p> }
             </CardBody>
             </Card>
         </div>
@@ -90,38 +92,42 @@ const VideoList = () => {
       { state?.user?.level === 'L1' && videoList?.map(video => video.videoLevel === 'L1' ? (
         <div key={video.videoId} className={`relative ${ isDesktop && 'video-list-item' }`} onClick={() => showVideoPlayer(video)}>
           <Card className='p-4 pb-1 rounded-md h-full'>
+            <div className="relative">
               <Image
-                  src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
-                  objectFit="contain"
-                  width="100%"
-                  alt={video.videoTitle	}
-                  className='aspect-square rounded-md'
-              />
-              <FaCirclePlay className='hidden hover-play-svg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10' size={'3rem'} color={'#ff6b6b'} />
-              <CardBody>
-                  <div className="flex flex-col gap-3">
-                      <h4 className='bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent'>{video.videoTitle	}</h4>
-                      <p className='text-default-500 text-xs md:text-sm'>Tarot reading unveils hidden truths, offering guidance through symbolic imagery and intuition.</p>
-                      <FaCirclePlay size={'1rem'} className={`${isMobile ? 'block' : 'hidden' }`} color='#ff6b6b' />
-                  </div>
-              </CardBody>
-          </Card>
-        </div>
-      ) : (
-        <div key={video.videoId} className={`relative ${ isDesktop && 'video-list-item' }`}>
-          <Card isPressable className='p-4 pb-1 rounded-md h-full' onPress={onOpen}>
-            <Image
                 src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
                 objectFit="contain"
                 width="100%"
-                alt={video.title}
+                alt={video.videoTitle	}
                 className='aspect-square rounded-md'
-            />
-            <FaLock className='hidden hover-lock-svg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10' size={'3rem'} color={'#ff6b6b'} />
+              />
+              <FaCirclePlay className='hidden hover-play-svg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10' size={'3rem'} color={'#ff6b6b'} />
+            </div>
+            <CardBody>
+                <div className="flex flex-col gap-3">
+                    <h4 className='bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent'>{video.videoTitle	}</h4>
+                    { video?.videoDescription	&& <p className='text-default-500 text-xs md:text-sm'>{ video?.videoDescription	 }</p> }
+                    <FaCirclePlay size={'1rem'} className={`${isMobile ? 'block' : 'hidden' }`} color='#ff6b6b' />
+                </div>
+            </CardBody>
+          </Card>
+        </div>
+      ) : (
+        <div key={video.videoId} className={`${ isDesktop && 'video-list-item' }`}>
+          <Card isPressable className='p-4 pb-1 rounded-md h-full' onPress={onOpen}>
+            <div className="relative">
+              <Image
+              src={video.videoLevel === 'L1' ? LevelOneThumbnail : LevelTwoThumbnail}
+              objectFit="contain"
+              width="100%"
+              alt={video.title}
+              className='aspect-square rounded-md'
+              />
+              <FaLock className='hidden hover-lock-svg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10' size={'3rem'} color={'#ff6b6b'} />
+            </div>
             <CardBody>
                 <div className="flex flex-col gap-3">
                   <h4 className='bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent'>{video.videoTitle}</h4>
-                  <p className='text-default-500 text-xs md:text-sm'>Tarot reading unveils hidden truths, offering guidance through symbolic imagery and intuition.</p>
+                  { video?.videoDescription	&& <p className='text-default-500 text-xs md:text-sm'>{ video?.videoDescription	 }</p> }
                   <FaLock size={'1rem'} className={`${isMobile ? 'block' : 'hidden' }`} color='#ff6b6b' />
                 </div>
             </CardBody>
