@@ -8,7 +8,7 @@ import { isMobile } from 'react-device-detect';
 const Layout = () => {
   return (
     <VideoProvider>
-      <div className='App' style={{ '--appHeight': isMobile ? '100dvh': '100vh' }} >
+      <div className='App' style={{ '--appHeight': isMobile ? '100dvh': '100vh', '--appWidth': isMobile ? '100dvw' : '100vw' }}>
         <Header />
         <Divider />
         <Outlet />
