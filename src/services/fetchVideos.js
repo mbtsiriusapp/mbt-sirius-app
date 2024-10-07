@@ -3,7 +3,7 @@ import { BASE_URL } from "./const";
 import toast from "react-hot-toast";
 
 const fetchVideos = () => {
-  return fetch(`${BASE_URL}Prod/video/`, {
+  return fetch(`${BASE_URL}/video/`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${Cookies.get('auth-token')}`,
