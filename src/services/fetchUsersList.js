@@ -3,7 +3,7 @@ import { BASE_URL } from "./const";
 import toast from "react-hot-toast";
 
 const fetchUsersList = async (query) => {
-  const response = await fetch(`${BASE_URL}Prod/user?role=${query?.queryKey[1] || 'super-admin' }`, {
+  const response = await fetch(`${BASE_URL}/user?role=${query?.queryKey[1] || 'super-admin' }`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${Cookies.get('auth-token')}`,
