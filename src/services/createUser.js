@@ -4,7 +4,7 @@ import { BASE_URL } from "./const";
 const createUser = async (newUser) => {
     if (!newUser) return;
 
-    const response = await fetch(`${BASE_URL}Prod/user`, {
+    const response = await fetch(`${BASE_URL}/user`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${Cookies.get('auth-token')}`,
