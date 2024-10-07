@@ -14,7 +14,7 @@ const updatedUser = async (userToUpdate) => {
       }
     }
 
-    const response = await fetch(`${BASE_URL}Prod/user/${userId}`, {
+    const response = await fetch(`${BASE_URL}/user/${userId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${Cookies.get('auth-token')}`,
