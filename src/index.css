@@ -4,7 +4,7 @@
 
 :root {
   --appHeight: 100vh;
-  --appHeight: 100vw;
+  --appWidth: 100vw;
 }
 
 body {
