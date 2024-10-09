@@ -17,7 +17,7 @@ const VideoPlayer = ({ selectedVideo, setSelectedVideo}) => {
               <span className=''>Back</span>
           </div>
         </div>
-        <h4 className='text-medium md:text-xl lg:text-2xl bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent text-center mb-4'>{ selectedVideo?.videoTitle }</h4>
+        <h4 className='text-medium md:text-xl lg:text-2xl bg-gradient-to-bl from-[#ff6b6b] to-[#f06595] bg-clip-text text-transparent text-center mb-4'>{ selectedVideo?.videoTitle?.split('.')[0] }</h4>
         <div className="video-player w-full">
             <ReactPlayer
             url={selectedVideo?.videoLink }
