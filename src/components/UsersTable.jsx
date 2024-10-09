@@ -1,4 +1,4 @@
-import { Button, Divider, getKeyValue, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Pagination, Popover, PopoverContent, PopoverTrigger, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, useDisclosure } from '@nextui-org/react';
+import { Button, Chip, Divider, getKeyValue, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Pagination, Popover, PopoverContent, PopoverTrigger, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, useDisclosure } from '@nextui-org/react';
 import cryptoRandomString from 'crypto-random-string';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
@@ -12,33 +12,6 @@ import useCreateUserMutation from '../hooks/useCreateUserMutation';
 import useDeleteUserMutation from '../hooks/useDeleteUserMutation';
 import useUpdatedUserMutation from '../hooks/useUpdateUserMutation';
 import { handleCopy } from '../shared';
-
-const rows = [
-    {
-      key: "1",
-      username: "Vignesh M",
-      useremail: "vigneshmv2312@gmail.com",
-      userpassword: "123456",
-      userlevel: new Set(["L2"]),
-      userrole: 'user'
-    },
-    {
-        key: "2",
-        username: "Venkatesh Ramar",
-        useremail: "venkateshramar@gmail.com",
-        userpassword: "080295",
-        userlevel: new Set(["L1"]),
-        userrole: 'user'
-    },
-    {
-        key: "3",
-        username: "Shilpa Vignesh",
-        useremail: "shilpakr@gmail.com",
-        userpassword: "080895",
-        userlevel: new Set(["L2"]),
-        userrole: 'user'
-    },
-  ];
   
   const columns = [
     {
@@ -57,10 +30,6 @@ const rows = [
         key: "level",
         label: "Level",
     },
-    // {
-    //     key: "userrole",
-    //     label: "User Role",
-    // },
     {
         key: "actions",
         label: "Actions",
@@ -75,6 +44,8 @@ const rows = [
 
 const UsersTable = ({ users }) => {
     const [page, setPage] = React.useState(1);
+    const [ searchUser, setSearchUser ] = useState('');
+    const [ cloneUsers, setCloneUsers ] = useState([]);
     
     // create or update user form fields
     const [ username, setUsername ] = useState('');
@@ -108,18 +79,34 @@ const UsersTable = ({ users }) => {
           deleteUserMutation.mutate(userToDelete);
           setUserToDelete(null);
         }
-    }, [userToDelete])
+    }, [userToDelete]);
+
+    useEffect(() => {
+      const usersClone = [ ...users ];
+      setCloneUsers(usersClone);
+    }, [users]);
+
+    useEffect(() => {
+      if (searchUser) {
+        const filteredUsers = users?.filter(user => {
+          return user?.name.toLowerCase().includes(searchUser.toLowerCase()) || user?.email.toLowerCase().includes(searchUser.toLowerCase());
+        });
+        setCloneUsers(filteredUsers);
+      } else {
+        setCloneUsers(users);
+      }
+    }, [searchUser]);
 
     // pagination logic
     const rowsPerPage = 10;
-    const pages = Math.ceil(users?.length / rowsPerPage);
+    const pages = Math.ceil(cloneUsers?.length / rowsPerPage);
 
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
 
-        return users?.slice(start, end);
-    }, [page, users]);
+        return cloneUsers?.slice(start, end);
+    }, [page, cloneUsers]);
 
     const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
 
@@ -246,7 +233,18 @@ const UsersTable = ({ users }) => {
 
       <motion.h1
       initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }} className='text-xl font-semibold px-4'>Users</motion.h1>
+      animate={{ opacity: 1, scale: 1 }} className='text-xl font-semibold px-4 text-[#ff6b6b]'>Users <span className='font-bold'>({ users?.length })</span></motion.h1>
+
+      <div className="flex flex-col gap-8 sm:flex-row justify-between items-center">
+        <Input type="text" variant={'flat'} label="Search any user by name or email..." value={searchUser} onValueChange={setSearchUser}
+        className="max-w-xs" />
+
+        <div className="flex gap-4">
+          <Chip size="lg" radius='sm' color='secondary'>L1 - { users?.filter(user => user?.level === 'L1')?.length } </Chip>
+        
+          <Chip size="lg" radius='sm' color='warning'>L2 - { users?.filter(user => user?.level === 'L2')?.length } </Chip>
+        </div>
+      </div>
 
         {/* Users Table */}
         <motion.div
